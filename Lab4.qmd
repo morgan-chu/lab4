@@ -187,6 +187,11 @@ library(tidymodels)
 
 - Part A: load the data and save the data frame as `parasites`.
 
+```{r}
+parasites <- read.csv("parasites.csv")
+```
+
+
 - Part B: Let's start by examining the relationship between `divergence_time` and `parsim`. Based on the goals of the analysis, what is the response variable?
 
 - Part C: Visualize the relationship between the two variables. (no regression line needed) Give no more than 1-2 sentences describing any patterns you see. 
