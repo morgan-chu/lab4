@@ -194,7 +194,14 @@ parasites <- read.csv("parasites.csv")
 
 - Part B: Let's start by examining the relationship between `divergence_time` and `parsim`. Based on the goals of the analysis, what is the response variable?
 
+  - The response variable is parsim.
+
 - Part C: Visualize the relationship between the two variables. (no regression line needed) Give no more than 1-2 sentences describing any patterns you see. 
+
+```{r}
+parasites |> ggplot() + geom_point(aes(x = divergence_time, y = parsim))
+```
+
 
 
 ## Exercise 2
@@ -202,6 +209,13 @@ parasites <- read.csv("parasites.csv")
 Now, we'll model this relationship.
 
 - Part A:  Fit a simple linear regression model on `divergence_time` and `parsim` based on your answer in Question 1B. Report the coefficients.   
+
+```{r}
+lm.out <- lm(divergence_time ~ parsim, data = parasites)
+lm.out
+summary(lm.out)
+```
+
 
 - Part B: Interpret the slope and the intercept in the context of the data.
 
@@ -214,7 +228,19 @@ Since `parsim` takes values between 0 and 1, we want to transform this variable 
 
 - Part A:  Using mutate, create a new variable `transformed_parsim` that is calculated as `log(parsim/(1-parsim))`. Add this variable to your data frame. Note: `log()` in R represents taking the **natural log**.
 
+```{r}
+parasites <- parasites |> mutate(transformed_parsim = log(parsim/(1-parsim)))
+```
+
+
 - Part B: Visualize the relationship between `divergence_time` and `transformed_parsim`. Add a regression line to your visualization.
+
+```{r}
+parasites |> ggplot(aes(x = divergence_time, y = transformed_parsim)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+```
+
 
 - Part C: Fit a simple linear regression model on `divergence_time` and `transformed_parsim`.  Report the coefficients. 
 
